@@ -1,14 +1,4 @@
 function split(wholeArray) {
-  //    let firstHalf = [];
-  //    let secondHalf = [];
-
-  // for (let i=0; i< wholeArray.length/2;i++){
-  //     firstHalf.push(i);
-  // }
-
-  // for (let i = wholeArray.length/2; i < wholeArray.length; i++) {
-  //     secondHalf.push(i);
-  // }
 
   let half = Math.floor(wholeArray.length / 2);
 
@@ -18,19 +8,34 @@ function split(wholeArray) {
   return [firstHalf, secondHalf];
 }
 
-function merge(arr1 = [], arr2 = []) {
-  if (!arr1.length && !arr2.length) return [];
-  if ((arr1.length && !arr2.length) || (!arr1.length && arr2.length) || arr1.length === 1 && arr2.length === 1)
-    return [...arr1, ...arr2];
-  // if (arr1.length > 1) split(arr1);
-  // if (arr2.length > 1) split(arr2);
-  for(let i = 0; i< arr1.length ; i++) {
-    console.log('ARRAYS=>', split(arr1))
-    let oneArr = split(arr1);
+function merge([arrA= [], arrB= []]) {
+  let result = [];
+  let i = 0;
+  let j = 0;
+  console.log('1',arrA, '2',arrB);
+  let arr1 = arrA;
+  let arr2 = arrB;
+  while(i < arr1.length && j < arr2.length) {
+    if(arr1[i] < arr2[j]) {
+      result.push(arr1[i]);
+      i++;
+    }else {
+      result.push(arr2[j]);
+      j++;
+    }
+  }
+  while(i < arr1.length) {
+    result.push(arr1[i])
+    i++
+  }
+  while(j <arr2.length) {
+    result.push(arr2[j]);
+    j++
+  }
+  return result;
+}
 
-    
-  }
-  for(let i = 0; i< arr2.length ; i++) {
-    let wholeArr = split(arr2);
-  }
+function mergeSort(arr) {
+  if(arr.length <= 1) return arr;
+  return merge(split(arr));
 }
